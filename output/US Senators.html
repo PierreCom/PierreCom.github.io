@@ -1,0 +1,1774 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+
+
+<meta name="author" content="Pierre Comalada" />
+<meta name="description" content="Clustering US Senators compared to their votes." />
+<meta name="keywords" content="Data Analysis">
+
+<meta property="og:site_name" content="Pierre Comalada - Portfolio"/>
+<meta property="og:title" content="Clustering US Senators"/>
+<meta property="og:description" content="Clustering US Senators compared to their votes."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://localhost:8000/US Senators.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2018-09-23 20:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://localhost:8000/author/pierre-comalada.html">
+<meta property="article:section" content="Data Analysis"/>
+<meta property="article:tag" content="Data Analysis"/>
+<meta property="og:image" content="/images/profile_logo.png">
+
+  <title>Pierre Comalada - Portfolio &ndash; Clustering US Senators</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://localhost:8000">
+        <img src="/images/profile_logo.png" alt="Pierre Comalada" title="Pierre Comalada">
+      </a>
+      <h1><a href="http://localhost:8000">Pierre Comalada</a></h1>
+
+<p>Data Scientist/Python Developer <br/><br/><br/><br/>   <i>Talking about cool stuff on Data.</i></p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://localhost:8000/pages/About me.html#About me">About me</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/PierreCom/" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/pierre-comalada-8a6048b0/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="http://localhost:8000">    Home
+</a>
+
+      <a href="/categories.html">Categories</a>
+
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="US Senators">Clustering US Senators</h1>
+    <p>
+          Posted on Dim 23 septembre 2018 in <a href="http://localhost:8000/category/data-analysis.html">Data Analysis</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI colors. */
+.ansibold {
+  font-weight: bold;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  border-left-width: 1px;
+  padding-left: 5px;
+  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #90CAF9;
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected {
+  border-color: #ababab;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  div.cell.selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected.jupyter-soft-selected {
+  border-left-width: 0;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+@-moz-document url-prefix() {
+  div.inner_cell {
+    overflow-x: hidden;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell > div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area > div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area > div.highlight > pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the <head> if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  padding: 0.4em;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
+  /* .CodeMirror-lines */
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+.rendered_html pre,
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+.rendered_html td,
+
+
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell > div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Clustering-US-Senators">Clustering US Senators<a class="anchor-link" href="#Clustering-US-Senators">&#182;</a></h1><p>The goal is to cluster Senators to find those how follow the mainstream of their parties, and those who doesn't.</p>
+<p>The dataset represent the Senate votes on proposed legislation from the 114th Senate.
+Each row represent a Senator and each column represent a vote. A 0 in a cell means the Senator voted No on the bill, 1 means the Senator voted Yes, and 0.5 means the Senator abstained.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="n">votes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;114_congress.csv&quot;</span><span class="p">)</span>
+<span class="n">votes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>party</th>
+      <th>state</th>
+      <th>00001</th>
+      <th>00004</th>
+      <th>00005</th>
+      <th>00006</th>
+      <th>00007</th>
+      <th>00008</th>
+      <th>00009</th>
+      <th>00010</th>
+      <th>00020</th>
+      <th>00026</th>
+      <th>00032</th>
+      <th>00038</th>
+      <th>00039</th>
+      <th>00044</th>
+      <th>00047</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alexander</td>
+      <td>R</td>
+      <td>TN</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Ayotte</td>
+      <td>R</td>
+      <td>NH</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Baldwin</td>
+      <td>D</td>
+      <td>WI</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Barrasso</td>
+      <td>R</td>
+      <td>WY</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Bennet</td>
+      <td>D</td>
+      <td>CO</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Number-of-Senators-by-Party,-Mean-by-roll">Number of Senators by Party, Mean by roll<a class="anchor-link" href="#Number-of-Senators-by-Party,-Mean-by-roll">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">votes</span><span class="p">[</span><span class="s1">&#39;party&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">votes</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>R    54
+D    44
+I     2
+Name: party, dtype: int64
+00001    0.325
+00004    0.575
+00005    0.535
+00006    0.945
+00007    0.545
+00008    0.415
+00009    0.545
+00010    0.985
+00020    0.525
+00026    0.545
+00032    0.410
+00038    0.480
+00039    0.510
+00044    0.460
+00047    0.370
+dtype: float64
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Clustering">Clustering<a class="anchor-link" href="#Clustering">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+
+<span class="n">kmeans_model</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">senator_distances</span> <span class="o">=</span> <span class="n">kmeans_model</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">votes</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">3</span><span class="p">:])</span>
+<span class="c1">#distance from each cluster</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Count-how-many-Senators-from-each-party-ended-up-in-each-cluster.">Count how many Senators from each party ended up in each cluster.<a class="anchor-link" href="#Count-how-many-Senators-from-each-party-ended-up-in-each-cluster.">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="n">kmeans_model</span><span class="o">.</span><span class="n">labels_</span>
+<span class="k">print</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">labels</span> <span class="p">,</span> <span class="n">votes</span><span class="p">[</span><span class="s2">&quot;party&quot;</span><span class="p">])</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1 1 0 1 0 0 1 0 1 0 0 1 0 1 0 0 0 1 1 1 1 0 1 1 1 1 1 1 0 0 1 1 0 1 1 0 1
+ 0 1 1 1 0 1 1 0 1 1 1 1 0 0 1 0 1 0 1 1 0 1 0 1 0 0 0 1 1 0 0 0 1 1 0 1 0
+ 1 1 1 1 1 0 1 0 0 1 1 0 1 0 1 0 1 1 1 0 1 0 0 0 1 0]
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>party</th>
+      <th>D</th>
+      <th>I</th>
+      <th>R</th>
+    </tr>
+    <tr>
+      <th>row_0</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>41</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>0</td>
+      <td>54</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The first cluster contains 41 Democrats, and both Independents. The second cluster contains 3 Democrats, and 54 Republicans.</p>
+<p>It sounds like 3 Democrats are more similar to Republicans in their voting than their own party. We'll explore these 3 Senators in more depth.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">democratic_outliers</span> <span class="o">=</span> <span class="n">votes</span><span class="p">[(</span><span class="n">labels</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">votes</span><span class="p">[</span><span class="s2">&quot;party&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;D&quot;</span><span class="p">)]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">democratic_outliers</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>        name party state  00001  00004  00005  00006  00007  00008  00009  \
+42  Heitkamp     D    ND    0.0    1.0    0.0    1.0    0.0    0.0    1.0   
+56   Manchin     D    WV    0.0    1.0    0.0    1.0    0.0    0.0    1.0   
+74      Reid     D    NV    0.5    0.5    0.5    0.5    0.5    0.5    0.5   
+
+    00010  00020  00026  00032  00038  00039  00044  00047  
+42    1.0    0.0    0.0    0.0    1.0    0.0    0.0    0.0  
+56    1.0    1.0    0.0    0.0    1.0    1.0    0.0    0.0  
+74    0.5    0.5    0.5    0.5    0.5    0.5    0.5    0.5  
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">senator_distances</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">senator_distances</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span> <span class="o">=</span> <span class="n">labels</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+TkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Distance from the cluster center</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Let's-find-extrems-Senators">Let's find extrems Senators<a class="anchor-link" href="#Let's-find-extrems-Senators">&#182;</a></h2><p>We cube every distance between a Senator point from the cluster center for identifying extrems</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">extremism</span> <span class="o">=</span> <span class="p">(</span><span class="n">senator_distances</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">votes</span><span class="p">[</span><span class="s1">&#39;extremism&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extremism</span>
+<span class="n">votes</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;extremism&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">votes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+    
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>         name party state  00001  00004  00005  00006  00007  00008  00009  \
+98     Wicker     R    MS    0.0    1.0    1.0    1.0    1.0    0.0    1.0   
+53   Lankford     R    OK    0.0    1.0    1.0    0.0    1.0    0.0    1.0   
+69       Paul     R    KY    0.0    1.0    1.0    0.0    1.0    0.0    1.0   
+80      Sasse     R    NE    0.0    1.0    1.0    0.0    1.0    0.0    1.0   
+26       Cruz     R    TX    0.0    1.0    1.0    0.0    1.0    0.0    1.0   
+48    Johnson     R    WI    0.0    1.0    1.0    1.0    1.0    0.0    1.0   
+47    Isakson     R    GA    0.0    1.0    1.0    1.0    1.0    0.0    1.0   
+65  Murkowski     R    AK    0.0    1.0    1.0    1.0    1.0    0.0    1.0   
+64      Moran     R    KS    0.0    1.0    1.0    1.0    1.0    0.0    1.0   
+30       Enzi     R    WY    0.0    1.0    1.0    1.0    1.0    0.0    1.0   
+
+    00010  00020  00026  00032  00038  00039  00044  00047  extremism  
+98    0.0    1.0    1.0    0.0    0.0    1.0    0.0    0.0  46.250476  
+53    1.0    1.0    1.0    0.0    0.0    1.0    0.0    0.0  46.046873  
+69    1.0    1.0    1.0    0.0    0.0    1.0    0.0    0.0  46.046873  
+80    1.0    1.0    1.0    0.0    0.0    1.0    0.0    0.0  46.046873  
+26    1.0    1.0    1.0    0.0    0.0    1.0    0.0    0.0  46.046873  
+48    1.0    1.0    1.0    0.0    0.0    1.0    0.0    0.0  40.017540  
+47    1.0    1.0    1.0    0.0    0.0    1.0    0.0    0.0  40.017540  
+65    1.0    1.0    1.0    0.0    0.0    1.0    0.0    0.0  40.017540  
+64    1.0    1.0    1.0    0.0    0.0    1.0    0.0    0.0  40.017540  
+30    1.0    1.0    1.0    0.0    0.0    1.0    0.0    0.0  40.017540  
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://localhost:8000/tag/data-analysis.html">Data Analysis</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy;  </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pierre Comalada - Portfolio ",
+  "url" : "http://localhost:8000",
+  "image": "/images/profile_logo.png",
+  "description": ""
+}
+</script>
+
+</body>
+</html>
