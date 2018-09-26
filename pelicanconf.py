@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Pierre Comalada'
-SITEURL = 'http://localhost:8000'
+SITEURL = 'https://pierrecom.github.io/'
 SITENAME = 'Pierre Comalada - Portfolio'
 SITELOGO= '/images/profile_logo.png'
 SITETITLE= 'Pierre Comalada'
