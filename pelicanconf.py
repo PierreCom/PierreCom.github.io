@@ -7,7 +7,7 @@ SITEURL = 'https://pierrecom.github.io/'
 SITENAME = 'Pierre Comalada - Portfolio'
 SITELOGO= '/images/profile_logo.png'
 SITETITLE= 'Pierre Comalada'
-SITESUBTITLE= 'Data Scientist/Python Developer <br/><br/><br/><br/>   <i>Talking about cool stuff on Data.</i>'
+SITESUBTITLE= 'Data Scientist/Python Developer <br/><br/><br/><br/>   <i>Some personal projects.</i>'
 
 ROBOTS = 'index, follow'
 

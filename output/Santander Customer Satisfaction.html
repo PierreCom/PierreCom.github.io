@@ -49,7 +49,7 @@
       </a>
       <h1><a href="https://pierrecom.github.io">Pierre Comalada</a></h1>
 
-<p>Data Scientist/Python Developer <br/><br/><br/><br/>   <i>Talking about cool stuff on Data.</i></p>
+<p>Data Scientist/Python Developer <br/><br/><br/><br/>   <i>Some personal projects.</i></p>
       <nav>
         <ul class="list">
           <li><a href="https://pierrecom.github.io/pages/About me.html#About me">About me</a></li>
@@ -94,9 +94,124 @@
 * IPython notebook
 *
 */
-/* CSS font colors for translated ANSI colors. */
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following styles are deprecated an will be removed in a future version */
 .ansibold {
   font-weight: bold;
+}
+.ansi-inverse {
+  outline: 0.5px dotted;
 }
 /* use dark versions for foreground, to improve visibility */
 .ansiblack {
@@ -175,12 +290,20 @@ div.cell {
   /* This acts as a spacer between cells, that is outside the border */
   margin: 0px;
   outline: none;
-  border-left-width: 1px;
-  padding-left: 5px;
-  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+  position: relative;
+  overflow: visible;
+}
+div.cell:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: transparent;
 }
 div.cell.jupyter-soft-selected {
-  border-left-color: #90CAF9;
   border-left-color: #E3F2FD;
   border-left-width: 1px;
   padding-left: 5px;
@@ -193,27 +316,39 @@ div.cell.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected {
+div.cell.selected,
+div.cell.selected.jupyter-soft-selected {
   border-color: #ababab;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+div.cell.selected:before,
+div.cell.selected.jupyter-soft-selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #42A5F5;
 }
 @media print {
-  div.cell.selected {
+  div.cell.selected,
+  div.cell.selected.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected.jupyter-soft-selected {
-  border-left-width: 0;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
-}
 .edit_mode div.cell.selected {
   border-color: #66BB6A;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+.edit_mode div.cell.selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #66BB6A;
 }
 @media print {
   .edit_mode div.cell.selected {
@@ -246,6 +381,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -266,11 +402,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -413,7 +544,9 @@ div.input_area > div.highlight > pre {
 .CodeMirror-lines {
   /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
   /* we have set a different line-height and want this to scale with that. */
-  padding: 0.4em;
+  /* Note that this should set vertical padding only, since CodeMirror assumes
+       that horizontal padding will be set on CodeMirror pre */
+  padding: 0.4em 0;
 }
 .CodeMirror-linenumber {
   padding: 0 8px 0 4px;
@@ -423,11 +556,24 @@ div.input_area > div.highlight > pre {
   border-top-left-radius: 2px;
 }
 .CodeMirror pre {
-  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
-  /* .CodeMirror-lines */
-  padding: 0;
+  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
+    use .CodeMirror-lines for vertical */
+  padding: 0 0.4em;
   border: 0;
   border-radius: 0;
+}
+.CodeMirror-cursor {
+  border-left: 1.4px solid black;
+}
+@media screen and (min-width: 2138px) and (max-width: 4319px) {
+  .CodeMirror-cursor {
+    border-left: 2px solid black;
+  }
+}
+@media screen and (min-width: 4320px) {
+  .CodeMirror-cursor {
+    border-left: 4px solid black;
+  }
 }
 /*
 
@@ -675,6 +821,9 @@ div.output_area img.unconfined,
 div.output_area svg.unconfined {
   max-width: none;
 }
+div.output_area .mglyph > img {
+  max-width: none;
+}
 /* This is needed to protect the pre formating from global settings such
    as that of bootstrap */
 .output {
@@ -713,7 +862,7 @@ div.output_area svg.unconfined {
 }
 div.output_area pre {
   margin: 0;
-  padding: 0;
+  padding: 1px 0 1px 0;
   border: 0;
   vertical-align: baseline;
   color: black;
@@ -835,6 +984,10 @@ div.output_unrecognized a:hover {
 .rendered_html h6:first-child {
   margin-top: 1em;
 }
+.rendered_html ul:not(.list-inline),
+.rendered_html ol:not(.list-inline) {
+  padding-left: 2em;
+}
 
 
 
@@ -851,16 +1004,24 @@ div.output_unrecognized a:hover {
 }
 
 
+
+
+
 .rendered_html pre,
+
 
 
 
 .rendered_html tr,
 .rendered_html th,
 
-.rendered_html td,
 
-
+.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
 .rendered_html * + table {
   margin-top: 1em;
 }
@@ -876,6 +1037,11 @@ div.output_unrecognized a:hover {
 
 .rendered_html img.unconfined,
 
+
+.rendered_html * + .alert {
+  margin-top: 1em;
+}
+[dir="rtl"] 
 div.text_cell {
   /* Old browsers */
   display: -webkit-box;
@@ -926,8 +1092,15 @@ h6:hover .anchor-link {
   display: none;
 }
 .text_cell.rendered 
+.text_cell.rendered .rendered_html tr,
+.text_cell.rendered .rendered_html th,
+.text_cell.rendered 
 .text_cell.unrendered .text_cell_render {
   display: none;
+}
+.text_cell .dropzone .input_area {
+  border: 2px dashed #bababa;
+  margin: -1px;
 }
 .cm-header-1,
 .cm-header-2,
@@ -1008,8 +1181,10 @@ h6:hover .anchor-link {
 .highlight .mh { color: #666666 } /* Literal.Number.Hex */
 .highlight .mi { color: #666666 } /* Literal.Number.Integer */
 .highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
 .highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
 .highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
 .highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
@@ -1020,9 +1195,11 @@ h6:hover .anchor-link {
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
 <style type="text/css">
 /* Temporary definitions which will become obsolete with Notebook release 5.0 */
@@ -1061,10 +1238,8 @@ h6:hover .anchor-link {
 
 .ansi-bold { font-weight: bold; }
 </style>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Santander-Customer-Satisfaction">Santander Customer Satisfaction<a class="anchor-link" href="#Santander-Customer-Satisfaction">&#182;</a></h1><p>Data Science Competition on Kaggle : <a href="https://www.kaggle.com/c/santander-customer-satisfaction">https://www.kaggle.com/c/santander-customer-satisfaction</a>
 Final Result : Top 67%.</p>
@@ -1083,7 +1258,7 @@ Final Result : Top 67%.</p>
 <span class="n">h2o</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1091,7 +1266,11 @@ Final Result : Top 67%.</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>/Users/comalada/anaconda/lib/python2.7/site-packages/IPython/core/formatters.py:92: DeprecationWarning: DisplayFormatter._ipython_display_formatter_default is deprecated: use @default decorator instead.
   def _ipython_display_formatter_default(self):
@@ -1113,7 +1292,11 @@ Final Result : Top 67%.</p>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 
 <div class="output_html rendered_html output_subarea ">
 <div style="overflow:auto"><table style="width:50%"><tr><td>H2O cluster uptime: </td>
@@ -1156,7 +1339,7 @@ Final Result : Top 67%.</p>
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">h2o</span><span class="o">.</span><span class="n">import_file</span><span class="p">(</span><span class="s2">&quot;/Users/comalada/Documents/h2o_ML/Kaggle-Santander_Customer_Satisfaction/train.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1164,7 +1347,11 @@ Final Result : Top 67%.</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Parse Progress: [##################################################] 100%
@@ -1184,7 +1371,7 @@ Parse Progress: [##################################################] 100%
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1192,7 +1379,11 @@ Parse Progress: [##################################################] 100%
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 
 <div class="output_html rendered_html output_subarea ">
 <table>
@@ -1231,7 +1422,7 @@ Parse Progress: [##################################################] 100%
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">h2o.estimators.gbm</span> <span class="kn">import</span> <span class="n">H2OGradientBoostingEstimator</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1244,15 +1435,13 @@ Parse Progress: [##################################################] 100%
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;TARGET&quot;</span><span class="p">]</span><span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;TARGET&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">asfactor</span><span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Split-0.7-Train---0.1-Validation---0.2-Test">Split 0.7 Train - 0.1 Validation - 0.2 Test<a class="anchor-link" href="#Split-0.7-Train---0.1-Validation---0.2-Test">&#182;</a></h1>
 </div>
@@ -1274,7 +1463,7 @@ Parse Progress: [##################################################] 100%
 <span class="n">test</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="s2">&quot;Test&quot;</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1290,15 +1479,13 @@ Parse Progress: [##################################################] 100%
 <span class="n">predictors</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Gradient-Boosting">Gradient Boosting<a class="anchor-link" href="#Gradient-Boosting">&#182;</a></h1>
 </div>
@@ -1326,7 +1513,7 @@ Parse Progress: [##################################################] 100%
                <span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1334,7 +1521,11 @@ Parse Progress: [##################################################] 100%
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 gbm Grid Build Progress: [##################################################] 100%
@@ -1354,7 +1545,7 @@ gbm Grid Build Progress: [##################################################] 10
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">model_gbm</span><span class="o">.</span><span class="n">sort_by</span><span class="p">(</span><span class="s2">&quot;auc&quot;</span><span class="p">,</span> <span class="n">increasing</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1362,7 +1553,11 @@ gbm Grid Build Progress: [##################################################] 10
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Grid Search Results for H2OGradientBoostingEstimator: 
@@ -1370,7 +1565,11 @@ Grid Search Results for H2OGradientBoostingEstimator:
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 
 <div class="output_html rendered_html output_subarea ">
 <div style="overflow:auto"><table style="width:50%"><tr><td><b>Model Id</b></td>
@@ -1404,7 +1603,11 @@ Grid Search Results for H2OGradientBoostingEstimator:
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 </pre>
@@ -1434,7 +1637,7 @@ Grid Search Results for H2OGradientBoostingEstimator:
                <span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1442,7 +1645,11 @@ Grid Search Results for H2OGradientBoostingEstimator:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 gbm Model Build Progress: [##################################################] 100%
@@ -1454,10 +1661,8 @@ gbm Model Build Progress: [##################################################] 1
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="AUC-:-Train-&amp;-Validation">AUC : Train &amp; Validation<a class="anchor-link" href="#AUC-:-Train-&amp;-Validation">&#182;</a></h1>
 </div>
@@ -1475,7 +1680,7 @@ gbm Model Build Progress: [##################################################] 1
 <span class="c1">#model_gbm.plot(metric=&quot;AUC&quot;)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1483,7 +1688,11 @@ gbm Model Build Progress: [##################################################] 1
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Train: 0.848617115678
 Validation: 0.845816831856
@@ -1505,7 +1714,7 @@ Validation: 0.845816831856
 <span class="n">test_performance</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1513,7 +1722,11 @@ Validation: 0.845816831856
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 ModelMetricsBinomial: gbm
@@ -1530,7 +1743,11 @@ Confusion Matrix (Act/Pred) for max f1 @ threshold = 0.137471941587:
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 
 <div class="output_html rendered_html output_subarea ">
 <div style="overflow:auto"><table style="width:50%"><tr><td><b></b></td>
@@ -1557,7 +1774,11 @@ Confusion Matrix (Act/Pred) for max f1 @ threshold = 0.137471941587:
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Maximum Metrics: Maximum metrics at their respective thresholds
@@ -1566,7 +1787,11 @@ Maximum Metrics: Maximum metrics at their respective thresholds
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 
 <div class="output_html rendered_html output_subarea ">
 <div style="overflow:auto"><table style="width:50%"><tr><td><b>metric</b></td>
@@ -1613,7 +1838,11 @@ Maximum Metrics: Maximum metrics at their respective thresholds
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Gains/Lift Table: Avg response rate:  4,01 %
@@ -1622,7 +1851,11 @@ Gains/Lift Table: Avg response rate:  4,01 %
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 
 <div class="output_html rendered_html output_subarea ">
 <div style="overflow:auto"><table style="width:50%"><tr><td><b></b></td>
@@ -1833,14 +2066,22 @@ Gains/Lift Table: Avg response rate:  4,01 %
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[69]:</div>
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[69]:</div>
+
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -1853,10 +2094,8 @@ Gains/Lift Table: Avg response rate:  4,01 %
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">&#182;</a></h1>
 </div>
@@ -1886,7 +2125,7 @@ Gains/Lift Table: Avg response rate:  4,01 %
                <span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1894,7 +2133,11 @@ Gains/Lift Table: Avg response rate:  4,01 %
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 drf Grid Build Progress: [##################################################] 100%
@@ -1914,7 +2157,7 @@ drf Grid Build Progress: [##################################################] 10
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">model_random_forest</span><span class="o">.</span><span class="n">sort_by</span><span class="p">(</span><span class="s2">&quot;auc&quot;</span><span class="p">,</span> <span class="n">increasing</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1922,7 +2165,11 @@ drf Grid Build Progress: [##################################################] 10
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Grid Search Results for H2ORandomForestEstimator: 
@@ -1930,7 +2177,11 @@ Grid Search Results for H2ORandomForestEstimator:
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 
 <div class="output_html rendered_html output_subarea ">
 <div style="overflow:auto"><table style="width:50%"><tr><td><b>Model Id</b></td>
@@ -1976,7 +2227,11 @@ Grid Search Results for H2ORandomForestEstimator:
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 </pre>
@@ -1997,7 +2252,7 @@ Grid Search Results for H2ORandomForestEstimator:
 <span class="c1">#model_gbm.plot(metric=&quot;AUC&quot;)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2005,7 +2260,11 @@ Grid Search Results for H2ORandomForestEstimator:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_10&#39;: 0.7788366862330695, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_11&#39;: 0.7820207477348616, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_6&#39;: 0.7788366862330695, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_7&#39;: 0.7820207477348616, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_4&#39;: 0.7765093227261314, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_5&#39;: 0.7823060793369291, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_2&#39;: 0.7788366862330695, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_3&#39;: 0.7820207477348616, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_0&#39;: 0.7765093227261314, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_1&#39;: 0.7823060793369291, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_8&#39;: 0.7765093227261314, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_9&#39;: 0.7823060793369291}
 ----Validation: {u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_10&#39;: 0.7811812877646773, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_11&#39;: 0.7823395488149033, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_6&#39;: 0.7811812877646773, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_7&#39;: 0.7823395488149033, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_4&#39;: 0.7753144531588151, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_5&#39;: 0.7763287972437195, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_2&#39;: 0.7811812877646773, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_3&#39;: 0.7823395488149033, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_0&#39;: 0.7753144531588151, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_1&#39;: 0.7763287972437195, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_8&#39;: 0.7753144531588151, u&#39;Grid_DRF_Train_model_python_1460226203968_1408_model_9&#39;: 0.7763287972437195}
@@ -2035,7 +2294,7 @@ Grid Search Results for H2ORandomForestEstimator:
                <span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2043,7 +2302,11 @@ Grid Search Results for H2ORandomForestEstimator:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 drf Model Build Progress: [##################################################] 100%
@@ -2064,7 +2327,7 @@ drf Model Build Progress: [##################################################] 1
 <span class="n">test_performance</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2072,7 +2335,11 @@ drf Model Build Progress: [##################################################] 1
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 ModelMetricsBinomial: drf
@@ -2089,7 +2356,11 @@ Confusion Matrix (Act/Pred) for max f1 @ threshold = 0.131365816061:
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 
 <div class="output_html rendered_html output_subarea ">
 <div style="overflow:auto"><table style="width:50%"><tr><td><b></b></td>
@@ -2116,7 +2387,11 @@ Confusion Matrix (Act/Pred) for max f1 @ threshold = 0.131365816061:
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Maximum Metrics: Maximum metrics at their respective thresholds
@@ -2125,7 +2400,11 @@ Maximum Metrics: Maximum metrics at their respective thresholds
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 
 <div class="output_html rendered_html output_subarea ">
 <div style="overflow:auto"><table style="width:50%"><tr><td><b>metric</b></td>
@@ -2172,7 +2451,11 @@ Maximum Metrics: Maximum metrics at their respective thresholds
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Gains/Lift Table: Avg response rate:  3,93 %
@@ -2181,7 +2464,11 @@ Gains/Lift Table: Avg response rate:  3,93 %
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 
 <div class="output_html rendered_html output_subarea ">
 <div style="overflow:auto"><table style="width:50%"><tr><td><b></b></td>
@@ -2392,14 +2679,22 @@ Gains/Lift Table: Avg response rate:  3,93 %
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[123]:</div>
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[123]:</div>
+
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -2420,7 +2715,7 @@ Gains/Lift Table: Avg response rate:  3,93 %
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">predictions_rf</span> <span class="o">=</span> <span class="n">model_random_forest</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2428,7 +2723,11 @@ Gains/Lift Table: Avg response rate:  3,93 %
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 drf prediction Progress: [##################################################] 100%
@@ -2449,7 +2748,7 @@ drf prediction Progress: [##################################################] 10
 <span class="n">df_test</span> <span class="o">=</span> <span class="n">h2o</span><span class="o">.</span><span class="n">import_file</span><span class="p">(</span><span class="s2">&quot;/Users/comalada/Documents/h2o_ML/Kaggle-Santander_Customer_Satisfaction/test.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2457,7 +2756,11 @@ drf prediction Progress: [##################################################] 10
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Parse Progress: [##################################################] 100%
@@ -2469,10 +2772,8 @@ Parse Progress: [##################################################] 100%
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Predict-with-the-model-build-on-the-test-Dataset">Predict with the model build on the test Dataset<a class="anchor-link" href="#Predict-with-the-model-build-on-the-test-Dataset">&#182;</a></h1>
 </div>
@@ -2486,7 +2787,7 @@ Parse Progress: [##################################################] 100%
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model_gbm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2494,7 +2795,11 @@ Parse Progress: [##################################################] 100%
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 gbm prediction Progress: [##################################################] 100%
@@ -2506,10 +2811,8 @@ gbm prediction Progress: [##################################################] 10
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Construct-the-Dataset-to-send-to-Kaggle">Construct the Dataset to send to Kaggle<a class="anchor-link" href="#Construct-the-Dataset-to-send-to-Kaggle">&#182;</a></h1>
 </div>
@@ -2523,7 +2826,7 @@ gbm prediction Progress: [##################################################] 10
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2538,7 +2841,7 @@ gbm prediction Progress: [##################################################] 10
 <span class="n">df_id</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">as_data_frame</span><span class="p">(</span><span class="n">use_pandas</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2551,7 +2854,7 @@ gbm prediction Progress: [##################################################] 10
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">merge</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_id</span><span class="p">,</span><span class="n">df_prediction</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2565,7 +2868,7 @@ gbm prediction Progress: [##################################################] 10
 <span class="k">print</span><span class="p">(</span><span class="n">df_id</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>  
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2573,7 +2876,11 @@ gbm prediction Progress: [##################################################] 10
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>p1    75818
 dtype: int64
@@ -2595,7 +2902,7 @@ dtype: int64
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;p1&quot;</span><span class="p">:</span> <span class="s2">&quot;TARGET&quot;</span><span class="p">})</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2608,7 +2915,7 @@ dtype: int64
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">merge</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;result.csv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2621,7 +2928,7 @@ dtype: int64
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">df_test</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2629,7 +2936,11 @@ dtype: int64
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 
 <div class="output_html rendered_html output_subarea ">
 <table>
@@ -2668,11 +2979,14 @@ dtype: int64
 <div class=" highlight hl-ipython2"><pre><span></span> 
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
+ 
+
+
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
