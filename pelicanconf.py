@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Pierre Comalada'
-SITEURL = 'https://pierrecom.github.io/'
+SITEURL = 'https://pierrecom.github.io'
 SITENAME = 'Pierre Comalada - Portfolio'
 SITELOGO= '/images/profile_logo.png'
 SITETITLE= 'Pierre Comalada'
@@ -12,10 +12,10 @@ SITESUBTITLE= 'Data Scientist/Python Developer <br/><br/><br/><br/>   <i>Some pe
 ROBOTS = 'index, follow'
 
 PATH = 'content'
-STATIC_PATHS = ['images']
+STATIC_PATHS = ['blog','images']
 ARTICLE_PATHS = ['blog']
 
-HOME_HIDE_TAGS = True
+#HOME_HIDE_TAGS = True
 
 TIMEZONE = 'Europe/Paris'
 
@@ -36,7 +36,7 @@ SOCIAL = (('github', 'https://github.com/PierreCom/'),
 ('linkedin', 'https://www.linkedin.com/in/pierre-comalada-8a6048b0/'),
 )
 
-USE_FOLDER_AS_CATEGORY = True
+#USE_FOLDER_AS_CATEGORY = True
 MAIN_MENU = True
 MENUITEMS = (('Categories', '/categories.html'),)
 
